@@ -5,7 +5,7 @@ class View
  def user_helper
  puts "User Help"
  puts "="*20
- puts "Type the name of the deck as an argument to start thet game\n"
+ puts "Type the name of the deck as an argument to start that game\n"
  end
  def print_question(question)
    puts question
