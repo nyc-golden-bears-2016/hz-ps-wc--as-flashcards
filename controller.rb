@@ -17,10 +17,10 @@ class Controller
 
 	def prompt_questions
 		loop do
-			question = get_next_question
+			question = @deck.next_question
 			break if !(question)
-			show_question(question)
-			report_answer
+			show_question(question.question)
+			report_answer(question)
 		end
 	end
 
@@ -32,19 +32,16 @@ class Controller
 
 	private
 
-	def get_next_question
-		@deck.next_question
-	end
-
 	def show_question(question)
 		@view.print_question(question)
 	end
 
-	def report_answer
-		# todo: update with proper Deck method
-		# puts "hello"
-		input = STDIN.gets.chomp
-		# puts "in here"
-		@view.check_answer(@deck.process_answer(input))
+	def report_answer(question)
+		input = @view.get_user_input
+		if @deck.process_answer(question, input)
+			@view.correct
+		else
+			@view.incorrect
+		end
 	end
 end

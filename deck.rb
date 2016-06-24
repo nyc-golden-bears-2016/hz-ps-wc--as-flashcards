@@ -15,21 +15,20 @@ class Deck
     if @question_counter >= @cards.length
       return nil
     else
-      question = @cards[@question_counter].question
+      question = @cards[@question_counter]
       @question_counter += 1
       question
     end
   end
 
-  def process_answer(input)
-    # p input
-    # p @cards[@question_counter].answer
-    @cards[@question_counter - 1].user_answer << input
-    if input == (@cards[@question_counter - 1].answer)
-      @cards[@question_counter - 1].answered_correctly = true
+  def process_answer(question, input)
+    if input == question.answer
+      question.user_answer << input
+      question.answered_correctly = true
       return true
+    else
+      false
     end
-    false
   end
 
   def create_cards
