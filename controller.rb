@@ -8,11 +8,19 @@ class Controller
 	def prompt_questions
 		loop do
 			question == get_next_question
+			break if !(question)
 			show_question(question)
 			report_answer
-		break if !(question)
 		end
 	end
+
+	def get_final_results
+		correct = @deck.correct
+		total = @deck.total
+		@view.final_results(correct, total)
+	end
+
+	private
 
 	def get_next_question
 		@deck.next_question
@@ -26,11 +34,5 @@ class Controller
 		# todo: update with proper Deck method
 		input = @view.get_user_input
 		@view.check_answer(deck.process_answer(input))
-	end
-
-	def get_final_results
-		correct = @deck.correct
-		total = @deck.total
-		@view.final_results(correct, total)
 	end
 end
